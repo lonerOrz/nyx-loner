@@ -1,0 +1,50 @@
+name: Auto Bump all packages
+on:
+  schedule:
+    # 每周日凌晨2点运行
+    - cron: '0 2 * * 0'
+  workflow_dispatch: # 允许手动触发
+    inputs:
+      bumpNumber:
+        description: 'Increase for each bump in the same day'
+        required: false
+        type: number
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # 使用 GitHub 默认的 runner
+    timeout-minutes: 1440
+    steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+          install_options: --daemon
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          set -e
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      # the bump itself
+      - name: Update all packages
+        id: build
+        run: |
+          nix develop --impure ./maintenance#updater -c 'chaotic-nyx-bumper'
+        env:
+          NYX_SOURCE: ${{ github.workspace }}
+          GH_TOKEN: ${{ github.token }}
+          NYX_BUMPN: ${{ inputs.bumpNumber }}
+          NYX_BUMP_REVERT: 0
