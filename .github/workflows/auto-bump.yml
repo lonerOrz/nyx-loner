@@ -2,11 +2,11 @@ name: Auto Bump all packages
 on:
   schedule:
     # 每周日凌晨2点运行
-    - cron: '0 2 * * 0'
+    - cron: "0 2 * * 0"
   workflow_dispatch: # 允许手动触发
     inputs:
       bumpNumber:
-        description: 'Increase for each bump in the same day'
+        description: "Increase for each bump in the same day"
         required: false
         type: number
 
@@ -48,3 +48,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
           NYX_BUMP_REVERT: 0
+
+      - name: Add labels to the created PR
+        if: success()
+        run: |
+          bump_number=${{ inputs.bumpNumber || 1 }}
+          current_date=$(date '+%Y%m%d')
+          branch_name="bump/$current_date-$bump_number"
+
+          PR_NUMBER=$(gh pr list --state open --head "$branch_name" --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr edit $PR_NUMBER \
+              --add-label "auto_bump" \
+              --add-label "github_actions"
+          else
+            echo "No matching PR found with branch $branch_name"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
