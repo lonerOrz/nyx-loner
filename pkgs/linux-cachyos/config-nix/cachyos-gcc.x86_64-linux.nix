@@ -1072,6 +1072,7 @@
   "CONFIG_NET_CRC32C" = "y";
   "CONFIG_PACKET" = "y";
   "CONFIG_PACKET_DIAG" = "m";
+  "CONFIG_INET_PSP" = "y";
   "CONFIG_UNIX" = "y";
   "CONFIG_AF_UNIX_OOB" = "y";
   "CONFIG_UNIX_DIAG" = "m";
@@ -1095,6 +1096,7 @@
   "CONFIG_SMC" = "m";
   "CONFIG_SMC_DIAG" = "m";
   "CONFIG_DIBS" = "m";
+  "CONFIG_DIBS_LO" = "y";
   "CONFIG_XDP_SOCKETS" = "y";
   "CONFIG_XDP_SOCKETS_DIAG" = "m";
   "CONFIG_NET_HANDSHAKE" = "y";
@@ -2460,6 +2462,7 @@
   "CONFIG_MD" = "y";
   "CONFIG_BLK_DEV_MD" = "m";
   "CONFIG_MD_BITMAP" = "y";
+  "CONFIG_MD_LLBITMAP" = "y";
   "CONFIG_MD_BITMAP_FILE" = "y";
   "CONFIG_MD_LINEAR" = "m";
   "CONFIG_MD_RAID0" = "m";
@@ -2836,6 +2839,7 @@
   "CONFIG_MLX5_SF" = "y";
   "CONFIG_MLX5_SF_MANAGER" = "y";
   "CONFIG_MLX5_DPLL" = "m";
+  "CONFIG_MLX5_EN_PSP" = "y";
   "CONFIG_MLXSW_CORE" = "m";
   "CONFIG_MLXSW_CORE_HWMON" = "y";
   "CONFIG_MLXSW_CORE_THERMAL" = "y";
