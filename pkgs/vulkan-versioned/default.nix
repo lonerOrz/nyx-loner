@@ -194,5 +194,9 @@ final.lib.makeScope final.newScope (self: {
       "SPIRV-Tools"
       "glslang"
     ];
+
+    extraAttrs = prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [ final.python3 ];
+    };
   };
 })
