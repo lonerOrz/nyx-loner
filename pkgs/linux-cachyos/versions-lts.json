@@ -1,16 +1,16 @@
 {
   "suffix": "-cachyos",
   "linux": {
-    "version": "6.12.63",
-    "hash": "sha256-lQLF/+S4lDg8l6v8z3RDCoRzLwTuR2ucDYdjWynffbM="
+    "version": "6.12.62",
+    "hash": "sha256-E+LGhayPq13Zkt0QVzJVTa5RSu81DCqMdBjnt062LBM="
   },
   "config": {
-    "rev": "9dc1058754e11653255e59a250ab5e4d7b269d0e",
-    "hash": "sha256-bZuOH1o/4IxRJWRAx8SfRLDk3uS2DJlZfUOU+aLf1AU="
+    "rev": "278762fc5eb743b8bf9f819fdf6506306685b101",
+    "hash": "sha256-gUC76q6nNDNF7PM4UWGW58eOGF0BalwgnPMTj8tKXiY="
   },
   "patches": {
-    "rev": "66405d0621ca0cd40ef205f6521d81d057f139fc",
-    "hash": "sha256-cJzmDK9bszh20zGT0kokmvVKqR0DV7ZbRgLBD6QiGGs="
+    "rev": "8a5e89d346af4221d7426b45da65a677a1ff5582",
+    "hash": "sha256-e9yoAfVY6URHUbUa6zehrvv1eIMdA9YAOql/ICAly38="
   },
   "zfs": {
     "rev": "fe5ed524c72e0b2e2cd4c47ee5bc987290e89666",
