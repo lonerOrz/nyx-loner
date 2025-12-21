@@ -10,36 +10,43 @@
 let
   makeGrammar = final.tree-sitter.buildGrammar;
 
-  rawLanguages = final.lib.trivial.importJSON (if evil then ./languages-evil.json else ./languages.json);
+  rawLanguages = final.lib.trivial.importJSON (
+    if evil then ./languages-evil.json else ./languages.json
+  );
   languagesFile = if evil then "languages-evil.json" else "languages.json";
 
-  languages = builtins.map (source:
+  languages = builtins.map (
+    source:
     let
       # The fetcher logic was moved here from the old grammar-artifact.nix
-      src = if source.type == "github" then
-        final.fetchFromGitHub {
-          inherit (source) owner repo rev;
-          hash = source.narHash;
-        }
-      else if source.type == "git" then
-        final.fetchgit {
-          inherit (source) url rev;
-          # fetchgit requires a name
-          name = "source";
-          hash = source.narHash;
-        }
-      else
-        throw "Unsupported grammar source type: ''${source.type}''; expected 'github' or 'git'";
+      src =
+        if source.type == "github" then
+          final.fetchFromGitHub {
+            inherit (source) owner repo rev;
+            hash = source.narHash;
+          }
+        else if source.type == "git" then
+          final.fetchgit {
+            inherit (source) url rev;
+            # fetchgit requires a name
+            name = "source";
+            hash = source.narHash;
+          }
+        else
+          throw "Unsupported grammar source type: ''${source.type}''; expected 'github' or 'git'";
     in
     (source // { inherit src; })
     // (if source ? subpath && source.subpath != null then { location = source.subpath; } else { })
   ) rawLanguages;
 
-  grammarArtifact = source:
-    (final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; })
-    .overrideAttrs (_: final.lib.optionalAttrs (source.name == "qmljs") {
-      dontCheckForBrokenSymlinks = true;
-    });
+  grammarArtifact =
+    source:
+    (final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; }).overrideAttrs (
+      _:
+      final.lib.optionalAttrs (source.name == "qmljs") {
+        dontCheckForBrokenSymlinks = true;
+      }
+    );
 
   grammarLink =
     {
