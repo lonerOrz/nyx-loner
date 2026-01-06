@@ -3,7 +3,7 @@ pull_request_rules:
     conditions:
       - and:
           - title~=^Bump [0-9]{8}-[0-9]+
-          - author=github-actions[bot]
+          - author=lonerOrz
           - label=auto_bump
           - label=github_actions
           - check-success=flake check
