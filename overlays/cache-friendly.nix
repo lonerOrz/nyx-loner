@@ -2,7 +2,7 @@
   flakes,
   nixpkgsConfig ? null,
 }:
-final: prev:
+final: _prev:
 let
   inherit (final) stdenv;
   inherit (stdenv.hostPlatform) system;
