@@ -15,4 +15,18 @@ gitOverride {
     repo = "pcsx2";
   };
   ref = "master";
+
+  postOverride =
+    old:
+    let
+      gitTag =
+        if old.src ? rev then "git-${prev.lib.substring 0 7 old.src.rev}" else "git-${old.version}";
+    in
+    {
+      postPatch = ''
+        substituteInPlace cmake/Pcsx2Utils.cmake \
+          --replace-regex 'set\\(PCSX2_GIT_TAG "[^"]*"\\)' \
+                          'set(PCSX2_GIT_TAG "${gitTag}")'
+      '';
+    };
 }
