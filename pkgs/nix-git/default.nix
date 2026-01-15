@@ -33,9 +33,8 @@ let
   nixComponents_git =
     (final.nixDependencies.callPackage
       "${flakes.nixpkgs}/pkgs/tools/package-management/nix/modular/packages.nix"
-      rec {
+      {
         inherit version src;
-        maintainers = [ final.lib.maintainers.pedrohlc ];
         teams = [ ];
         otherSplices = final.generateSplicesForNixComponents "nixComponents_git";
       }
