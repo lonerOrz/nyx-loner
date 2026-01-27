@@ -68,9 +68,6 @@ with prevModules;
       (prevAttrs: {
         makeFlags = prevAttrs.makeFlags ++ kernel.commonMakeFlags;
       });
-  xpadneo = xpadneo.override {
-    inherit (final) bluez;
-  };
   zenpower = zenpower.overrideAttrs (prevAttrs: {
     makeFlags =
       prevAttrs.makeFlags
